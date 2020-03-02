@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import ApiClient from './Services/ApiClient';
 import WeatherNow from './Components/WeatherNow/index'
 import LocationInput from './Components/LocationInput/index'
-import trainModel from './Components/Prediction/index'
-// import CO2Chart from './Components/CO2Chart/index'
+import CO2Chart from './Components/CO2Chart/index'
+import MLModel from './Components/Prediction/index'
 import HistoricalData from './Components/WeatherHistory';
 import moment from 'moment';
 import './App.css';
+const fs = require('fs');
 
 function App () {
 
@@ -14,6 +15,7 @@ function App () {
   const [weatherHistorical, setWeatherHistorical] = useState({});
   const [coords, setCoords] = useState({});
   const [filteredData, setFilteredData] = useState([]);
+  const [MLData, setMLData] = useState([])
 
   let date = moment(Date.now()).format('MM-DD')
   let hour = moment(Date.now()).format('HH')
@@ -29,21 +31,21 @@ function App () {
 
   function updateData (id) {
     let i = 0;
-    ApiClient.getWeatherHistoryByStationId(id.data.length > 0 && id.data[i].id, Date.now())
-      .then(data => {
-        if (data) {
-          if (data.data.length === 0) {
-            i++;
-            ApiClient.getWeatherHistoryByStationId(id.data.length > 0 && id.data[i].id, Date.now())
-              .then(data => populateData(dateRegExp, data))
-          } else {
-            populateData(dateRegExp, data)
+    if (id) {
+      ApiClient.getWeatherHistoryByStationId(id.data.length > 0 && id.data[i].id, Date.now())
+        .then(data => {
+          if (data) {
+            if (data.data.length === 0) {
+              i++;
+              ApiClient.getWeatherHistoryByStationId(id.data.length > 0 && id.data[i].id, Date.now())
+                .then(data => populateData(dateRegExp, data, MLDataRegExp))
+            } else {
+              populateData(dateRegExp, data, MLDataRegExp)
+            }
           }
-        }
-      })
+        })
+    }
   }
-
-  const trainedModel = trainModel()
 
   function updateDataOnInput (location) {
     ApiClient.getWeatherNow(location)
@@ -54,18 +56,20 @@ function App () {
 
   function updateTime (newTime) {
     let d = moment(newTime).format('MM-DD HH')
+    let e = moment(newTime).format('MM-DD')
     let updatedDateRegExp = new RegExp(`.*-${d}:0+:0+$`)
-    populateData(updatedDateRegExp, weatherHistorical)
+    let updatedMLDataDateRegExp = new RegExp(`.*-${e}`)
+    populateData(updatedDateRegExp, weatherHistorical, updatedMLDataDateRegExp)
   }
 
-  function populateData (dateRegExp, weatherHistorical) {
+  function populateData (dateRegExp, weatherHistorical, MLDataRegExp) {
     setWeatherHistorical(weatherHistorical)
     const tempData = [];
-    const MLData = [];
+    const modelData = [];
     if (weatherHistorical) {
       for (let i = 0; i < weatherHistorical.data.length; i++) {
-        if (dateRegExp.test(weatherHistorical.data[i].time)) {
-          MLData.push({
+        if (MLDataRegExp.test(weatherHistorical.data[i].time)) {
+          modelData.push({
             x: new Date(weatherHistorical.data[i].time),
             y: weatherHistorical.data[i].temperature
           })
@@ -78,6 +82,10 @@ function App () {
         }
       }
       setFilteredData(tempData)
+      setMLData(modelData)
+      // fs.writeFile('./MLData.json', modelData, () => {
+      //   console.log('modelData overwritten');
+      // })
     }
   }
 
@@ -108,10 +116,11 @@ function App () {
       </div>
       <div className="feat">
         <p>Prediction</p>
+        <MLModel />
       </div>
-      {/* <div className="Co2">
+      <div className="Co2">
         <CO2Chart />
-      </div> */}
+      </div>
       <div className="historical">
         <HistoricalData filteredData={filteredData} />
       </div>

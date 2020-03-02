@@ -1,0 +1,68 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.location {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0;
+  padding-left: 4%;
+}
+
+.forms {
+  justify-content: space-around;
+}
+
+.form {
+  padding: 1%;
+  height: 30%;
+  display: flex;
+  flex-direction: row;
+  margin: 2px 0 2px;
+  max-width: 70%;
+}
+
+input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  max-height: 20px;
+  width: 90%;
+  padding: 0%;
+}
+
+button {
+  height: 85%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  background-color: #044D29;
+  color: #AEC4B8;
+  border: none;
+  cursor: pointer;
+  margin-right: 2px;
+  margin-left: 5px;
+  border-radius: 5px;
+  /* box-shadow: 1px 1px 10px 0.5px #044D29; */
+}
+
+.time_input {
+  text-align: center;
+}
+
+.gps {
+  border-radius: 50px;
+  height: 80%;
+  margin-right: 5px;
+  align-self: center;
+}
+
+.coord {
+  text-align: center;
+  width: fit-content;
+  padding: 5px;
+  height: 40px;
+  border-radius: 40px;
+}

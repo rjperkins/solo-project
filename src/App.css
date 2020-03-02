@@ -1,11 +1,20 @@
+#root {
+  max-height: 200px;
+}
+
 .App {
   text-align: center;
   display: grid;
-  grid-template-columns: 3fr 1fr 3fr;
-  grid-template-rows: 25vh 25vh;
-  grid-template-areas: 
-    "weatherNow weatherNow feat"
-    "HistoricalData HistoricalData LocationInput";
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 30% 70%;
+  grid-template-areas: "weatherNow weatherNow weatherNow LocationInput" "HistoricalData HistoricalData HistoricalData Co2";
+  /* background-color: rgba(0, 0, 0, 1);
+  color: white; */
+  border-radius: 25px;
+  margin: 10px;
+  padding: 20px;
+  min-width: 400px;
+  box-shadow: 2px 2px 5px 1px;
 }
 
 .current {
@@ -22,10 +31,12 @@
 }
 
 .historical {
-  width: 100%;
   grid-area: HistoricalData;
 }
 
-.location {
+.container {
   grid-area: LocationInput;
+  margin-left: 5%;
+  display: flex;
+  flex-direction: row;
 }

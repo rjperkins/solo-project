@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../../node_modules/react-vis/dist/style.css';
-import { FlexibleXYPlot, LineSeries, MarkSeries, AreaSeries, HorizontalGridLines, VerticalGridLines, XAxis, YAxis } from 'react-vis';
+import { FlexibleXYPlot, LineSeries, MarkSeries, AreaSeries, XAxis, YAxis } from 'react-vis';
 
 function HistoricalData ({ filteredData, width }) {
   const yMax = Math.max(...filteredData.map(p => p.y)) + 5;
@@ -22,7 +22,7 @@ function HistoricalData ({ filteredData, width }) {
       r_avgs.push({ x: date, y: curr_avg });
       avg_prev = curr_avg;
     }
-    if (data[0]) {
+    if (data[0] && data[1]) {
       r_avgs.unshift({ x: (data[0].x), y: (data[0].y + data[1].y) / 2 })
       r_avgs.push({ x: data[data.length - 1].x, y: avg_prev })
 
@@ -35,23 +35,21 @@ function HistoricalData ({ filteredData, width }) {
   return (
     <FlexibleXYPlot
       yDomain={[yMin, yMax]}
-      xType="time">
+      xType="time"
+      margin={25}>
       <AreaSeries
         data={filteredData}
         curve={'curveNatural'}
-        color="rgba(9, 138, 0, 0.3)"
+        color="rgba(0, 200, 60, 0.551)"
       />
       <AreaSeries
         curve={'curveNatural'}
-        color="white"
+        color="rgba(0, 0, 0, 1)"
         data={SMA}
       />
       <MarkSeries data={filteredData}
         size="2"
         color="#0a8a00" />
-      {/* <HorizontalGridLines />
-      <VerticalGridLines /> */}
-
       <LineSeries
         curve={'curveNatural'}
         color="#929292"
@@ -63,7 +61,13 @@ function HistoricalData ({ filteredData, width }) {
         color="#0a8a00"
         data={filteredData} />
       <XAxis tickSize={0} hideLine tickLabelAngle={-20} title="Date" />
-      <YAxis tickSize={0} position={'start'} hideLine title="Temp (°C)" />
+      <YAxis tickSize={0} position={'end'} hideLine title="Temp (°C)" />
+      {/* <Highlight
+        drag
+        enableX={false}
+      // onBrush={area => setState({ filter: area })}
+      // onDrag={area => setState({ filter: area })} 
+      /> */}
     </FlexibleXYPlot>
   )
 }

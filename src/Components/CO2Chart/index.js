@@ -1,7 +1,7 @@
 import React from 'react'
 import CO2Data from '../../C02.json'
 import '../../../node_modules/react-vis/dist/style.css';
-import { FlexibleXYPlot, GradientDefs, AreaSeries, HorizontalGridLines, VerticalGridLines, XAxis, YAxis } from 'react-vis';
+import { FlexibleXYPlot, GradientDefs, AreaSeries, XAxis, YAxis } from 'react-vis';
 
 function CO2Chart ({ height, width }) {
 
@@ -19,7 +19,7 @@ function CO2Chart ({ height, width }) {
   const yMax = Math.max(...data.map(p => p.y)) * 1.1;
   const yMin = Math.min(...data.map(p => p.y)) - 2;
   return (
-    <FlexibleXYPlot yDomain={[yMin, yMax]} xType="time">
+    <FlexibleXYPlot yDomain={[yMin, yMax]} margin={25} xType="time">
 
       {/* <HorizontalGridLines />
       <VerticalGridLines /> */}
@@ -29,8 +29,8 @@ function CO2Chart ({ height, width }) {
           <stop offset="100%" stopColor="green" stopOpacity={0.4} />
         </linearGradient>
       </GradientDefs>
-      <XAxis title="Date" />
-      <YAxis title="CO2 (ppm)" />
+      <XAxis tickSize={0} hideLine tickLabelAngle={-30} title="Date" />
+      <YAxis tickSize={0} hideLine tickLabelAngle={30} title="CO2 (ppm)" />
       <AreaSeries data={data} color="black" style={{ strokeWidth: '0.2px' }} curve="curveNatural" fill={'url(#CoolGradient)'} />
     </FlexibleXYPlot>
   )
