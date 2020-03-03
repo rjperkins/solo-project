@@ -1,8 +1,13 @@
+#root {
+  max-height: 200px;
+}
+
 .App {
   text-align: center;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 30% 70%;
+<<<<<<< HEAD
   grid-template-areas: "locationInput locationInput weatherNow weatherNow " "historicalData historicalData historicalData Co2";
   background-color: #173042;
   color: white;
@@ -13,6 +18,15 @@
   min-height: 300px;
   min-width: 400px;
   max-width: 800px;
+=======
+  grid-template-areas: "weatherNow weatherNow weatherNow LocationInput" "HistoricalData HistoricalData HistoricalData Co2";
+  /* background-color: rgba(0, 0, 0, 1);
+  color: white; */
+  border-radius: 25px;
+  margin: 10px;
+  padding: 20px;
+  min-width: 400px;
+>>>>>>> 6682b2484fa720f6be50d26f0711f875dcd6a13f
   box-shadow: 2px 2px 5px 1px;
 }
 
@@ -32,6 +46,7 @@
   padding-bottom: 10%;
 }
 
+<<<<<<< HEAD
 .feat {
   width: 100%;
   grid-area: mlModel;
@@ -52,6 +67,15 @@
 .container {
   grid-area: locationInput;
   padding-left: 15%;
+=======
+.historical {
+  grid-area: HistoricalData;
+}
+
+.container {
+  grid-area: LocationInput;
+  margin-left: 5%;
+>>>>>>> 6682b2484fa720f6be50d26f0711f875dcd6a13f
   display: flex;
   flex-direction: row;
 }

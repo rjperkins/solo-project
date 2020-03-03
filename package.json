@@ -4,6 +4,16 @@
   "description": "A React component to show change in temperature over the last 10 years",
   "main": "./build/index.js",
   "dependencies": {
+<<<<<<< HEAD
+=======
+    "@tensorflow/tfjs-node": "^1.5.2",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.4.0",
+    "@testing-library/user-event": "^7.2.1",
+    "chart.js": "^2.9.3",
+    "d3": "^5.15.0",
+    "fs": "0.0.1-security",
+>>>>>>> 6682b2484fa720f6be50d26f0711f875dcd6a13f
     "moment": "^2.24.0",
     "react-vis": "^1.11.7"
   },
