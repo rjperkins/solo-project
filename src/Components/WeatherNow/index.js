@@ -3,13 +3,22 @@ import './style.css';
 
 function WeatherNow ({ weatherNow }) {
 
-  let icon = weatherNow && weatherNow.weather && (weatherNow.weather[0].description).replace(' ', '-');
+  // let icon = weatherNow && weatherNow.weather && (weatherNow.weather[0].description).replace(' ', '-');
   const styles = weatherNow && weatherNow.weather && { transform: `rotate(${130 + weatherNow.wind.deg}deg)` }
+
+  const getWeatherIcon = (weatherNow) => {
+    if (weatherNow && weatherNow.weather) {
+      const weatherType = weatherNow.weather[0].description.replace(' ', '-');
+      return require(`../../icons/${weatherType}.svg`);
+    } else {
+      return require(`../../icons/unknown.svg`)
+    }
+  }
 
   return (
     <div className="weather-now">
       <div className="icon">
-        <img src={icon && require(`../../icons/${icon}.svg`) ? require(`../../icons/${icon}.svg`) : null} alt="desc"></img>
+        <img src={getWeatherIcon(weatherNow)} alt="desc"></img>
       </div>
       <div className="info">
         <div className="temperature">{weatherNow && weatherNow.weather && (weatherNow.main.temp - 273.15).toFixed(1)} °C</div>

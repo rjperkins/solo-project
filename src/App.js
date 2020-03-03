@@ -17,7 +17,6 @@ function App () {
   const [coords, setCoords] = useState({});
   const [filteredData, setFilteredData] = useState([]);
 
-
   let date = moment(Date.now()).format('MM-DD')
   let hour = moment(Date.now()).format('HH')
   let dateRegExp = new RegExp(`.*-${date} ${hour}:0+:0+$`);
@@ -111,7 +110,6 @@ function App () {
     if (data[0] && data[1]) {
       r_avgs.unshift({ x: (data[0].x), y: (data[0].y + data[1].y) / 2 })
       r_avgs.push({ x: data[data.length - 1].x, y: avg_prev })
-
     }
     return r_avgs;
   };
@@ -134,7 +132,8 @@ function App () {
       <div className="current">
         <WeatherNow weatherNow={weatherNow} />
       </div>
-      {/* <div className="feat">
+      {/* TODO: fix tensorflow model to work on browser
+      <div className="feat">
         <p>Prediction</p>
         <MLModel MLData={filteredData} />
       </div> */}
