@@ -31,6 +31,6 @@ function fetchData (url) {
     .then(res => res.status <= 400 ? res : Promise.reject(res))
     .then(res => res.json())
     .catch((err) => {
-      console.log(`${err.message} while fetching /${meteoStatBaseURL}...`)
+      console.log(`${err.message} while fetching from ${url}...`)
     });
 }

@@ -1,71 +1,64 @@
-import React from 'react';
-import '../../../node_modules/react-vis/dist/style.css';
-import { FlexibleXYPlot, LineSeries, MarkSeries, AreaSeries, HorizontalGridLines, VerticalGridLines, XAxis, YAxis } from 'react-vis';
+import React, { useState } from 'react';
+import 'react-vis/dist/style.css';
+import { FlexibleXYPlot, LineSeries, MarkSeries, AreaSeries, XAxis, YAxis, Crosshair } from 'react-vis';
+import moment from 'moment'
 
-function HistoricalData ({ filteredData, width }) {
-  const yMax = Math.max(...filteredData.map(p => p.y)) + 5;
-  const yMin = Math.min(...filteredData.map(p => p.y)) - 5;
+function MLModel ({ filteredData, SMA }) {
 
-  function ComputeSMA (data, window_size) {
-    let tempArr = []
-    for (let i = 0; i < data.length; i++) {
-      tempArr.push(data[i].y);
-    }
-    let r_avgs = [], avg_prev = 0;
-    for (let i = 0; i <= tempArr.length - window_size; i++) {
-      let curr_avg = 0, t = i + window_size;
-      for (let k = i; k < t && k <= tempArr.length; k++) {
-        curr_avg += tempArr[k] / window_size;
-      }
-      let date = (data[i].x).getTime() + (3.154e+10 * (2))
-      date = new Date(date)
-      r_avgs.push({ x: date, y: curr_avg });
-      avg_prev = curr_avg;
-    }
-    if (data[0]) {
-      r_avgs.unshift({ x: (data[0].x), y: (data[0].y + data[1].y) / 2 })
-      r_avgs.push({ x: data[data.length - 1].x, y: avg_prev })
+  const [points, setPoints] = useState([]);
 
-    }
-    return r_avgs;
-  }
-
-  let SMA = ComputeSMA(filteredData, 3)
+  const yMax = Math.max(...filteredData.map(p => p.y)) + 1;
+  const yMin = Math.min(...filteredData.map(p => p.y)) < 0 ? Math.min(...filteredData.map(p => p.y)) - 2 : 0;
 
   return (
-    <FlexibleXYPlot
+    <FlexibleXYPlot className="graph"
       yDomain={[yMin, yMax]}
-      xType="time">
+      xType="time"
+      margin={25}
+      onMouseLeave={() => setPoints([])}>
       <AreaSeries
+        animation={"gentle"}
         data={filteredData}
         curve={'curveNatural'}
-        color="rgba(9, 138, 0, 0.3)"
+        color="#1f5d2f"
       />
       <AreaSeries
+        animation={"gentle"}
         curve={'curveNatural'}
-        color="white"
+        color=" #173042"
         data={SMA}
       />
-      <MarkSeries data={filteredData}
+      <MarkSeries
+        data={filteredData}
+        animation={"gentle"}
         size="2"
-        color="#0a8a00" />
-      {/* <HorizontalGridLines />
-      <VerticalGridLines /> */}
-
+        color="#0a8a00"
+      />
       <LineSeries
+        animation={"gentle"}
         curve={'curveNatural'}
         color="#929292"
         style={{ strokeDasharray: "2 2" }}
         strokeStyle="dashed"
         data={SMA} />
       <LineSeries
+        onNearestX={v => setPoints([v])}
         curve={'curveNatural'}
         color="#0a8a00"
+        animation={"gentle"}
         data={filteredData} />
       <XAxis tickSize={0} hideLine tickLabelAngle={-20} title="Date" />
       <YAxis tickSize={0} position={'start'} hideLine title="Temp (°C)" />
+      <Crosshair values={points} style={{
+        line: { backgroundColor: "green" }
+      }}>
+        <div style={{ background: 'black' }}>
+          <p>{points.length && JSON.stringify(moment(points[0].x).format('l HH:mm'))}</p>
+          <p>{points.length && JSON.stringify(points[0].y)} °C</p>
+        </div>
+      </Crosshair>
     </FlexibleXYPlot>
   )
 }
 
-export default HistoricalData;
+export default MLModel;

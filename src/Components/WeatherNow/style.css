@@ -1,4 +1,31 @@
-.description {
-  height: 100px;
-  width: 100px;
+.weather-now {
+  display: flex;
+  min-width: 130px;
+  align-items: center;
+  font-size: 1.4em;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.temperature {
+  margin-bottom: 5px;
+}
+
+.wind {
+  display: flex;
+}
+
+.wind_speed {
+  margin-left: 5px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.wind_direction {
+  justify-self: center;
+  margin-bottom: 0;
+}
+
+img {
+  width: 50%;
+  /* float: left; */
 }

@@ -1,0 +1,79 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.location {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0;
+  padding-left: 4%;
+}
+
+.form {
+  height: 30%;
+  display: flex;
+  flex-direction: row;
+  margin: 3px 0 5px;
+}
+
+input {
+  border: 1px solid #ccc;
+  color: black;
+  border-radius: 4px;
+  width: 90%;
+  padding: 0%;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  margin-right: 7px;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  background-color: #1f5d2f;
+  color: #AEC4B8;
+  border: none;
+  cursor: pointer;
+  border-radius: 20px;
+  padding: 0px;
+  justify-self: center;
+}
+
+button:focus {
+  outline: 0;
+}
+
+.time-input {
+  text-align: center;
+}
+
+.gps {
+  border-radius: 50px;
+  height: 70%;
+  width: 90%;
+  align-self: center;
+}
+
+.gps-image {
+  width: 30px;
+}
+
+.update {
+  width: 20px;
+  opacity: 0.6;
+  align-self: center;
+  justify-self: center;
+  margin: 2px;
+  margin-right: 2.5px;
+}
+
+.coord {
+  text-align: center;
+  width: fit-content;
+  padding: 5px;
+  height: 40px;
+  border-radius: 40px;
+}

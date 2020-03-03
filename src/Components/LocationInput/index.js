@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import './style.css';
 
-
 function LocationInput ({ updateLocation, coordUpdate, updateTime }) {
 
   const [location, setLocation] = useState('');
-  const [time, setTime] = useState('00:00')
+  const [time, setTime] = useState('');
 
   function handleLocationSubmit (e) {
     e.preventDefault();
@@ -19,18 +18,22 @@ function LocationInput ({ updateLocation, coordUpdate, updateTime }) {
   }
 
   return (
-    <div className="location">
-      <form onSubmit={handleLocationSubmit} className="form">
-        City
-      <input type="text" name="city" value={location} onChange={(e) => setLocation(e.target.value)} />
-        <button className="city_input" type="submit">update</button>
-      </form>
-      <button className="coord" onClick={coordUpdate}>get GPS</button>
-      <form onSubmit={handleTimeSubmit} className="form">
-        Time
-      <input type="datetime-local" name="time" placeholder="2017-06-13T13:00" value={time} onChange={(e) => setTime(e.target.value)} />
-        <button className="city_input" type="submit">update</button>
-      </form>
+    <div className="container">
+      <div className="gps">
+        <button className="coord" onClick={coordUpdate}><img className="gps-image" src={require('../../icons/110094_miscellaneous_512x512.png')} alt="gps"></img></button>
+      </div>
+      <div className="location">
+        <div className="forms">
+          <form onSubmit={handleLocationSubmit} className="form">
+            <input type="text" name="city" placeholder="Enter Location" value={location} onChange={(e) => setLocation(e.target.value)} required />
+            <button className="city-input" type="submit"><img className="update" src={require('../../icons/icons_update-512.png')} alt="update" /></button>
+          </form>
+          <form onSubmit={handleTimeSubmit} className="form">
+            <input type="datetime-local" name="time" placeholder="13-06-2020 12:00" value={time} onChange={(e) => setTime(e.target.value)} required />
+            <button className="time-input" type="submit"><img className="update" src={require('../../icons/icons_update-512.png')} alt="update" /></button>
+          </form>
+        </div>
+      </div>
     </div>
   )
 }
