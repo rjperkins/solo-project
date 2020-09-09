@@ -3,7 +3,6 @@ import './style.css';
 
 function WeatherNow ({ weatherNow }) {
 
-  // let icon = weatherNow && weatherNow.weather && (weatherNow.weather[0].description).replace(' ', '-');
   const styles = weatherNow && weatherNow.weather && { transform: `rotate(${130 + weatherNow.wind.deg}deg)` }
 
   const getWeatherIcon = (weatherNow) => {

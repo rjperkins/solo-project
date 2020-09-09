@@ -2,27 +2,24 @@
   "name": "weather-trend",
   "version": "0.1.0",
   "description": "A React component to show change in temperature over the last 10 years",
-  "main": "./build/index.js",
+  "main": "index.js",
   "dependencies": {
-<<<<<<< HEAD
-=======
-    "@tensorflow/tfjs-node": "^1.5.2",
+    "@tensorflow/tfjs": "^1.7.0",
+    "@tensorflow/tfjs-node": "^1.7.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
-    "chart.js": "^2.9.3",
-    "d3": "^5.15.0",
-    "fs": "0.0.1-security",
->>>>>>> 6682b2484fa720f6be50d26f0711f875dcd6a13f
     "moment": "^2.24.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-scripts": "3.4.0",
     "react-vis": "^1.11.7"
   },
   "scripts": {
-    "start": "webpack --watch",
-    "build": "webpack",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "prepublish": "rm -rf ./dist && npm run build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
